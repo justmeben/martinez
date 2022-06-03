@@ -11,7 +11,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-combobox  class="mt-6" placeholder="Select a Player" v-model="selected_player_id" :items="players"></v-combobox>
+      <v-select class="mt-6" placeholder="Select a Player" v-model="selected_player_id" :items="players"></v-select>
     </v-app-bar>
 
     <v-main class="ma-5">
@@ -70,14 +70,12 @@ export default {
         chart_data.labels.push(month_number)
 
         if(this.selected_player_id){
-          let data = players_data[this.selected_player_id.value]
+          let data = players_data[this.selected_player_id]
           if(data){
-            let total_points = data.total_points || null
-            total_points_dataset.data.push(total_points)
+            total_points_dataset.data.push(data.total_points || null)
           }else{
             total_points_dataset.data.push(null)
           }
-
         }
       }
 
@@ -93,9 +91,6 @@ export default {
       }
       return users
     },
-    player_month_on_month_data(){
-      return this.get_player_data('upto_month_data')
-    }
   }
 };
 </script>
