@@ -75,7 +75,8 @@ class MafiaDataCollector:
     def _html_data_to_json(self, html_data):
         soup = BeautifulSoup(html_data, features="html.parser")
         players = soup.find_all('tr')
-        return [self._parse_player_soup(player) for player in players[1:]]
+        return {self._parse_player_soup(player)['username']: self._parse_player_soup(player)
+                for player in players[1:]}
 
     def fetch_all_data(self):
         month = 1
