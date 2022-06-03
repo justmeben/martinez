@@ -16,7 +16,11 @@
 
     <v-main class="ma-5">
       <div v-if="selected_player_id">
+        <h2>Single Month Data</h2>
         <LineChart class="chart" :chart-data="get_player_data('single_month_data')" :chart-options="chartOptions" />
+
+        <h2 class="mt-16">All Data</h2>
+        <LineChart class="chart" :chart-data="get_player_data('upto_month_data')" :chart-options="chartOptions" />
       </div>
       <div v-else>
         <h4>Hey its me <strong>Martinez</strong> the Mafia-Bot
