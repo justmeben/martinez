@@ -6,9 +6,11 @@ from typing import Dict
 import requests
 from bs4 import BeautifulSoup
 
-BASE_URL = 'https://the-mafia.net/?q=rate%2Fnightfall-premier-league-2022'
+DOMAIN_NAME = 'https://the-mafia.net'
+BASE_URL = f'{DOMAIN_NAME}/?q=rate%2Fnightfall-premier-league-2022'
 DATE_URL_TEMPLATE = '&date_from[date]=%(dfrom)s&date_to[date]=%(dto)s'
 DATA_FILE = 'mafia_data.json'
+
 
 class MafiaDataCollector:
     roles = ('citizen', 'mafia', 'sheriff', 'don')
@@ -45,6 +47,7 @@ class MafiaDataCollector:
         cols = player.find_all('td')
         try:
             parsed_player = {
+                'games_url': DOMAIN_NAME + cols[1].find_all('a')[1].attrs['href'],
                 'username': cols[1].find('a').attrs['href'].split('/')[2],
                 'name': cols[1].find('a').text,
                 'total_points': int(cols[2].text),
